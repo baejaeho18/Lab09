@@ -38,17 +38,39 @@ public class SalesReporter {
 		}				
 	}
 	public void computeStats() {
+		for(int i=0;i<numberOfSalesman;i++) {
+			double highestSales = 0;
+			if(highestSales<team[i+1].getSales())
+				highestSales = team[i+1].getSales();
+			this.highestSales = highestSales;
 		
+		averageSales=team[i].getSales()+averageSales;
+		}
 	}
 	public void displayResults() {
-		for(int i=0;i<numberOfSalesman;i++) {
-			System.out.println("Name: " + team[i].getName());
-			System.out.println("Sales: $" + team[i].getSales());
-		}
+		System.out.println("Average slaes per assoicaite is &" + averageSales);
 		
+		System.out.println("The highest sales figure is $" + highestSales);
+		System.out.println("The following had the highest sales: ");
+		System.out.println("Name: " + team[i].getName());
+		System.out.println("Sales: $" + team[i].getSales());
+		System.out.println((team[i].getSales()-averageSales) + "above the average.");
+		
+		for(int i=0;i<numberOfSalesman;i++) {
+			if(team[i].getSales() != highestSales) {
+				System.out.println("Name: " + team[i].getName());
+				System.out.println("Sales: $" + team[i].getSales());
+				if(team[i].getSales()<averageSales)
+					System.out.println((averageSales-team[i].getSales()) + "below the average.");
+				if(team[i].getSales()>averageSales)
+					System.out.println((team[i].getSales()-averageSales) + "above the average.");
+		
+			}
+		}		
 	}
 	public void execute() {
 		getData();
+		computeStats();
 		displayResults();
 	}
 }
